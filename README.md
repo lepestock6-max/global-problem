@@ -52,7 +52,6 @@ pip install -r requirements.txt
 •https://github.com/eternnoir/pyTelegramBotAPI/blob/master/examples
 
 # Какие библиотеки я использую↓ 
-•telebot
-•InlineKeyboardMarkup, InlineKeyboardButton
+•telebot, InlineKeyboardMarkup, InlineKeyboardButton
 
 # удачи в запуске проекта!
