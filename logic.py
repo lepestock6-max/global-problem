@@ -7,6 +7,8 @@ def send_picture_to_bot() -> str:
 
 
 def send_mem_to_bot() -> str:
-    images = os.listdir("mem")  # ["1.png"]
+    mem = os.listdir("mem")  # ["1.png"]
     image = random.choice(mem)
     return image
+
+
