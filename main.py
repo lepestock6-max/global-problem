@@ -1,15 +1,25 @@
 import telebot
 from config import token
-from logic import send_picture_to_bot, send_mem_to_bot
+from logic import send_picture_to_bot, send_mem_to_bot 
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from info import sovet
 
 bot = telebot.TeleBot(token)
 
 answers = {}
 
+def get_markup(options):
+    markup = InlineKeyboardMarkup()
+    markup.row_width = 2  
+    for option in options:       
+        button = InlineKeyboardButton(text=option, callback_data=option)
+        markup.add(button)
+    return markup
+
+
 @bot.message_handler(commands=["start"])
 def start_bot(message):
-    bot.send_message(message.chat.id, "Привет! надеюсь ты почитал обо мне в гитхабе если нет то здесь краткая инфа обо мне -> Я бот помошник по теме глобального потепления")
+    bot.send_message(message.chat.id, "Привет! надеюсь ты почитал обо мне в гитхабе если нет то здесь краткая инфа обо мне -> Я бот помощник по теме глобального потепления")
 
 @bot.message_handler(commands=["help"])
 def start_help(message):
@@ -20,23 +30,25 @@ def start_help(message):
     /test - тест по теме Глобальному Потеплению
     """)
 
+
+#выдаёт рандомную картинку
+
 @bot.message_handler(commands=["picture"])
 def start_picture(message):
-    with open(f"/pictures/{send_picture_to_bot()}", "rb", encoding="utf-8") as photo:
-        bot.send_photo(message.chat.id, photo)
+    with open(f"/pictures/{send_picture_to_bot()}", "rb", encoding="utf-8") as file:
+        bot.send_photo(message.chat.id, file)
+
+
+#выдаёт рандомную мем
 
 @bot.message_handler(commands=["mem"])
 def start_mem(message):
     with open(f"/mem/{send_picture_to_bot()}", "rb", encoding="utf-8") as photo:
         bot.send_photo(message.chat.id, photo)
 
-def get_markup(options):
-    markup = InlineKeyboardMarkup()
-    markup.row_width = 2  
-    for option in options:       
-        button = InlineKeyboardButton(text=option, callback_data=option)
-        markup.add(button)
-    return markup
+
+
+#тест(мини игра)
 
 @bot.message_handler(commands=['test'])
 def handle_test(message):
@@ -66,18 +78,8 @@ def callback_query(call):
 
     bot.answer_callback_query(call.id, response)
 
-sovet = [
-    "Выключайте воду, пока чистите зубы. Это сбережет сотни литров воды в месяц!",
-    "Выключайте из розеток приборы, которыми сейчас не пользуетесь.",
-    "Используйте тканевую сумку-шоппер вместо покупки пластиковых пакетов.",
-    "Замените старые лампы в доме на энергосберегающие светодиодные.",
-    "По возможности чаще ходите пешком или выбирайте велосипед.",
-    "Сдавайте использованные батарейки в специальные пункты приема.",
-    "Используйте многоразовую бутылку для воды вместо покупки пластиковых.",
-    "Используйте бумагу с двух сторон для заметок и черновиков.",
-    "Принимайте быстрый душ вместо ванны, чтобы тратить меньше воды.",
-    "Покупайте местные продукты, чтобы уменьшить выбросы от их перевозки."
-]
+
+#команда с советами дня
 
 @bot.message_handler(commands=['solution'])
 def send_welcome(message):
