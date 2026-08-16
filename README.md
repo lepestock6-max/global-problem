@@ -7,7 +7,7 @@
 
 ### Структура проекта
 ```
-/start - приветствие бота
+/start - приветствие бота. 
 ```
 
 ```
@@ -55,3 +55,4 @@ pip install -r requirements.txt
 •telebot, InlineKeyboardMarkup, InlineKeyboardButton, pyttsx3
 
 # удачи в запуске проекта!
+# Бот также отправляет голосовое сообщение, обязательно послушайте его!
