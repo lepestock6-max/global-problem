@@ -1,8 +1,12 @@
 import telebot
 from config import token
-from logic import send_picture_to_bot, send_mem_to_bot 
+from logic import send_picture_to_bot, send_mem_to_bot, send_voice 
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from info import sovet
+import os
+import pyttsx3
+
+engine = pyttsx3.init() 
 
 bot = telebot.TeleBot(token)
 
@@ -16,11 +20,25 @@ def get_markup(options):
         markup.add(button)
     return markup
 
-
+#приветсвие бота
 @bot.message_handler(commands=["start"])
 def start_bot(message):
-    bot.send_message(message.chat.id, "Привет! надеюсь ты почитал обо мне в гитхабе если нет то здесь краткая инфа обо мне -> Я бот помощник по теме глобального потепления")
+  bot.send_message(
+      message.chat.id,
+      "Привет! надеюсь ты почитал обо мне в гитхабе если нет то здесь краткая"
+      " инфа обо мне -> Я бот помощник по теме глобального потепления",
+  )
+#голосовое сообщение
+  chat_id = message.chat.id
+  voice_text = "Привет! Я бот помощник по теме глобального потепления."
 
+
+  file_path = create_welcome_voice(voice_text)
+
+  with open(file_path, "rb") as voice_file:
+    bot.send_voice(chat_id, voice_file)
+
+#список всех команд
 @bot.message_handler(commands=["help"])
 def start_help(message):
     bot.send_message(message.chat.id, """
@@ -39,7 +57,7 @@ def start_picture(message):
         bot.send_photo(message.chat.id, file)
 
 
-#выдаёт рандомную мем
+#выдаёт рандомный мем
 
 @bot.message_handler(commands=["mem"])
 def start_mem(message):
@@ -90,4 +108,4 @@ def send_tip(message):
     chosen_sov = random.choice(sovet)
     bot.reply_to(message, chosen_sov)
 
-bot.polling()
+bot.infinity_polling()
