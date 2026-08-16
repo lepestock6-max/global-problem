@@ -49,9 +49,9 @@ Set-ExecutionPolicy RemoteSigned -Scope Process
 pip install -r requirements.txt
 ```
 ## Документации которые я использовал
-•https://github.com/eternnoir/pyTelegramBotAPI/blob/master/examples
+•https://github.com/eternnoir/pyTelegramBotAPI/blob/master/examples,https://github.com/eternnoir/pyTelegramBotAPI
 
 # Какие библиотеки я использую↓ 
-•telebot, InlineKeyboardMarkup, InlineKeyboardButton
+•telebot, InlineKeyboardMarkup, InlineKeyboardButton, pyttsx3
 
 # удачи в запуске проекта!
